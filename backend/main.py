@@ -109,12 +109,12 @@ def post_monitoring_query(body: MonitoringQueryBody) -> dict[str, Any]:
 async def post_count_tokens(
     kind: str = Form(...),
     text: str | None = Form(default=None),
-    image: UploadFile | None = File(default=None),
+    images: list[UploadFile] = File(default_factory=list),
     model: str = Form(default=tokens_mod.DEFAULT_MODEL),
 ) -> dict[str, Any]:
     """Count tokens for one sample of a given `kind` (input | output_text | output_image).
 
-    Accepts either text, image, or both as parts of a single sample.
+    `images` is repeated — pass the form field once per image.
     """
     if kind not in {"input", "output_text", "output_image"}:
         raise HTTPException(
@@ -122,24 +122,23 @@ async def post_count_tokens(
             detail=f"kind must be one of input | output_text | output_image, got {kind!r}",
         )
 
-    image_bytes = None
-    image_mime = None
-    image_filename = None
-    if image is not None:
-        image_bytes = await image.read()
-        image_mime = image.content_type or "image/png"
-        image_filename = image.filename
+    image_payloads: list[tuple[bytes, str]] = []
+    filenames: list[str] = []
+    for f in images or []:
+        if f is None or not f.filename:
+            continue
+        image_payloads.append((await f.read(), f.content_type or "image/png"))
+        filenames.append(f.filename)
 
-    if not text and image_bytes is None:
+    if not text and not image_payloads:
         raise HTTPException(
-            status_code=400, detail="Provide text, an image, or both."
+            status_code=400, detail="Provide text, at least one image, or both."
         )
 
     try:
-        total = tokens_mod.count_tokens(
+        result = tokens_mod.count_tokens(
             text=text,
-            image_bytes=image_bytes,
-            image_mime=image_mime,
+            images=image_payloads or None,
             model=model,
         )
     except tokens_mod.TokenCountError as e:
@@ -152,12 +151,18 @@ async def post_count_tokens(
             status = 401
         raise HTTPException(status_code=status, detail=msg)
 
+    by_modality = result["by_modality"]
     return {
         "kind": kind,
-        "total_tokens": total,
+        "total_tokens": result["total"],
+        "text_tokens": by_modality.get("TEXT", 0),
+        "image_tokens": by_modality.get("IMAGE", 0),
+        "by_modality": by_modality,
+        "request": result.get("request"),
+        "fallback_used": result.get("fallback_used", False),
         "sample": {
-            "filename": image_filename,
-            "mime": image_mime,
+            "filenames": filenames,
+            "image_count": len(image_payloads),
             "has_text": bool(text),
             "text_chars": len(text) if text else 0,
         },
@@ -168,32 +173,31 @@ async def post_count_tokens(
 @app.post("/api/run-and-count")
 async def post_run_and_count(
     text: str | None = Form(default=None),
-    image: UploadFile | None = File(default=None),
+    images: list[UploadFile] = File(default_factory=list),
     model: str = Form(default=tokens_mod.DEFAULT_MODEL),
 ) -> dict[str, Any]:
     """Run a single generateContent call and return per-modality token counts.
 
     Used by the input card's "Run to est. outputs" action — one model call
-    populates a3 (input), a4 (output text), a5 (output image) all at once.
+    populates the input + output token fields all at once.
 
     Note: this IS a billed model call, unlike /api/count-tokens.
     """
-    image_bytes = None
-    image_mime = None
-    if image is not None:
-        image_bytes = await image.read()
-        image_mime = image.content_type or "image/png"
+    image_payloads: list[tuple[bytes, str]] = []
+    for f in images or []:
+        if f is None or not f.filename:
+            continue
+        image_payloads.append((await f.read(), f.content_type or "image/png"))
 
-    if not text and image_bytes is None:
+    if not text and not image_payloads:
         raise HTTPException(
-            status_code=400, detail="Provide text, an image, or both."
+            status_code=400, detail="Provide text, at least one image, or both."
         )
 
     try:
         result = generate_mod.run_and_count(
             text=text,
-            image_bytes=image_bytes,
-            image_mime=image_mime,
+            images=image_payloads or None,
             model=model,
         )
     except generate_mod.GenerateError as e:

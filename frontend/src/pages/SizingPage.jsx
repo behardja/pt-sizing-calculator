@@ -6,7 +6,7 @@ import MonitoringFieldCard from '../components/MonitoringFieldCard.jsx'
 import TokenCard from '../components/TokenCard.jsx'
 
 const EASE = [0.4, 0, 0.2, 1]
-const TOTAL_FIELDS = 5
+const TOTAL_FIELDS = 6
 
 function TocItem({ label, value, unit, targetId }) {
   const set = value != null
@@ -44,11 +44,11 @@ function TocItem({ label, value, unit, targetId }) {
 
 export default function SizingPage() {
   const navigate = useNavigate()
-  const { a1, a2, a3, a4, a5 } = useSizing()
+  const { a1, a2, a3, a4, a5, a6 } = useSizing()
 
   const filled = [
-    a1.value != null, a2.value != null,
-    a3.value != null, a4.value != null, a5.value != null,
+    a1.value != null, a2.value != null, a3.value != null,
+    a4.value != null, a5.value != null, a6.value != null,
   ].filter(Boolean).length
   const allReady = filled === TOTAL_FIELDS
 
@@ -58,7 +58,7 @@ export default function SizingPage() {
         <header className={s.intro}>
           <div>
             <div className={s.eyebrow}>Step 01 · Sizing inputs</div>
-            <h1 className={s.title}>Populate the five estimator fields.</h1>
+            <h1 className={s.title}>Populate the six estimator fields.</h1>
             <p className={s.subtitle}>
               Each field has its own action — pull from monitoring or estimate
               from a sample. Use the contents below to jump to a specific field,
@@ -84,9 +84,10 @@ export default function SizingPage() {
           <div className={s.tocList}>
             <TocItem label="Percentage of queries using >200K context window" value={a1.value} unit="%"   targetId="card-a1" />
             <TocItem label="Estimated queries per second requiring assurance" value={a2.value} unit="qps" targetId="card-a2" />
-            <TocItem label="Input tokens (image + text) per query"            value={a3.value} unit="tok" targetId="card-a3" />
-            <TocItem label="Output response text tokens per query"            value={a4.value} unit="tok" targetId="card-a4" />
-            <TocItem label="Output image tokens per query"                    value={a5.value} unit="tok" targetId="card-a5" />
+            <TocItem label="Input text tokens per query"                      value={a3.value} unit="tok" targetId="card-input" />
+            <TocItem label="Input image tokens per query"                     value={a4.value} unit="tok" targetId="card-input" />
+            <TocItem label="Output response text tokens per query"            value={a5.value} unit="tok" targetId="card-a5" />
+            <TocItem label="Output image tokens per query"                    value={a6.value} unit="tok" targetId="card-a6" />
           </div>
         </motion.nav>
 
@@ -97,23 +98,23 @@ export default function SizingPage() {
           <div id="card-a2" className={s.cardAnchor}>
             <MonitoringFieldCard field="a2" />
           </div>
-          <div id="card-a3" className={s.cardAnchor}>
+          <div id="card-input" className={s.cardAnchor}>
             <TokenCard
-              title="Input tokens (image + text) per query"
-              desc="Upload one representative input image and/or paste a typical text prompt. Click Estimate for input tokens only, or ⚡ Run Model to est. Outputs to actually call the model and populate the output cards too."
+              title="Input tokens per query (text + image)"
+              desc="Upload one representative input image and/or paste a typical text prompt. One Estimate call fills both the text and image input fields. ⚡ Run Model to est. Outputs additionally populates the output cards below."
               kind="input"
               accept="image/*"
               runEndToEnd
             />
           </div>
-          <div id="card-a4" className={s.cardAnchor}>
+          <div id="card-a5" className={s.cardAnchor}>
             <TokenCard
               title="Output response text tokens per query"
               desc="Paste a representative model output text sample, then click Estimate."
               kind="output_text"
             />
           </div>
-          <div id="card-a5" className={s.cardAnchor}>
+          <div id="card-a6" className={s.cardAnchor}>
             <TokenCard
               title="Output image tokens per query"
               desc="Upload one representative output image, then click Estimate."
@@ -132,7 +133,7 @@ export default function SizingPage() {
         >
           <div className={s.footerCopy}>
             <h2 className={s.footerTitle}>
-              {allReady ? 'All five inputs ready.' : 'Continue to the summary.'}
+              {allReady ? 'All six inputs ready.' : 'Continue to the summary.'}
             </h2>
             {allReady && (
               <p className={s.footerSubtitle}>

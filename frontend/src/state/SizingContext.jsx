@@ -65,9 +65,10 @@ export function SizingProvider({ children }) {
   }, [])
   const [a1, setA1] = useState({ value: null, diag: null, queries: null })
   const [a2, setA2] = useState({ value: null, diag: null, queries: null })
-  const [a3, setA3] = useState({ value: null, tokens: null })    // image + text combined sample
-  const [a4, setA4] = useState({ value: null, tokens: null })    // text-only sample
-  const [a5, setA5] = useState({ value: null, tokens: null })    // image-only sample
+  const [a3, setA3] = useState({ value: null })   // input text tokens
+  const [a4, setA4] = useState({ value: null })   // input image tokens
+  const [a5, setA5] = useState({ value: null })   // output text tokens
+  const [a6, setA6] = useState({ value: null })   // output image tokens
 
   const value = useMemo(() => ({
     model, setModel,
@@ -77,7 +78,8 @@ export function SizingProvider({ children }) {
     a3, setA3,
     a4, setA4,
     a5, setA5,
-  }), [model, monitoring, a1, a2, a3, a4, a5])
+    a6, setA6,
+  }), [model, monitoring, a1, a2, a3, a4, a5, a6])
 
   return <SizingContext.Provider value={value}>{children}</SizingContext.Provider>
 }

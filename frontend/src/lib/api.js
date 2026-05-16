@@ -36,17 +36,26 @@ export async function queryMonitoring({
   }))
 }
 
-export async function countTokens({ kind, file, text }) {
+function _appendImages(fd, files) {
+  // Accept array of File objects, or a single File for back-compat.
+  if (!files) return
+  const list = Array.isArray(files) ? files : [files]
+  for (const f of list) {
+    if (f) fd.append('images', f)
+  }
+}
+
+export async function countTokens({ kind, files, text }) {
   const fd = new FormData()
   fd.append('kind', kind)
-  if (file) fd.append('image', file)
+  _appendImages(fd, files)
   if (text) fd.append('text', text)
   return handle(await fetch('/api/count-tokens', { method: 'POST', body: fd }))
 }
 
-export async function runAndCount({ file, text }) {
+export async function runAndCount({ files, text }) {
   const fd = new FormData()
-  if (file) fd.append('image', file)
+  _appendImages(fd, files)
   if (text) fd.append('text', text)
   return handle(await fetch('/api/run-and-count', { method: 'POST', body: fd }))
 }

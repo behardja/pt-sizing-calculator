@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 import s from './SummaryPage.module.css'
 import { useSizing, estimatorUrlFor } from '../state/SizingContext.jsx'
+import { copyToClipboard } from '../lib/clipboard.js'
 
 const EASE = [0.4, 0, 0.2, 1]
 
@@ -19,38 +20,37 @@ function displayValue(value) {
 }
 
 function RowCopyButton({ value }) {
-  const [copied, setCopied] = useState(false)
+  const [status, setStatus] = useState(null)  // 'copied' | 'failed' | null
   async function go() {
-    try {
-      await navigator.clipboard.writeText(formatValue(value))
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1400)
-    } catch {
-      // clipboard blocked
-    }
+    const ok = await copyToClipboard(formatValue(value))
+    setStatus(ok ? 'copied' : 'failed')
+    setTimeout(() => setStatus(null), 1600)
   }
+  const label = status === 'copied' ? '✓ copied' : status === 'failed' ? 'failed' : 'copy'
+  const cls = status === 'copied' ? s.rowCopied : status === 'failed' ? s.rowFailed : ''
   return (
     <button
       type="button"
-      className={`${s.rowCopy} ${copied ? s.rowCopied : ''}`}
+      className={`${s.rowCopy} ${cls}`}
       onClick={go}
       aria-label="Copy value"
     >
-      {copied ? '✓ copied' : 'copy'}
+      {label}
     </button>
   )
 }
 
 export default function SummaryPage() {
   const navigate = useNavigate()
-  const { model, a1, a2, a3, a4, a5 } = useSizing()
+  const { model, a1, a2, a3, a4, a5, a6 } = useSizing()
 
   const rows = [
     { key: 'a1', label: 'Percentage of queries using >200K context window', unit: '%',   value: a1.value },
     { key: 'a2', label: 'Estimated queries per second requiring assurance', unit: 'qps', value: a2.value },
-    { key: 'a3', label: 'Input tokens (image + text) per query',            unit: 'tok', value: a3.value },
-    { key: 'a4', label: 'Output response text tokens per query',            unit: 'tok', value: a4.value },
-    { key: 'a5', label: 'Output image tokens per query',                    unit: 'tok', value: a5.value },
+    { key: 'a3', label: 'Input text tokens per query',                      unit: 'tok', value: a3.value },
+    { key: 'a4', label: 'Input image tokens per query',                     unit: 'tok', value: a4.value },
+    { key: 'a5', label: 'Output response text tokens per query',            unit: 'tok', value: a5.value },
+    { key: 'a6', label: 'Output image tokens per query',                    unit: 'tok', value: a6.value },
   ]
 
   const filled = rows.filter(r => r.value != null).length

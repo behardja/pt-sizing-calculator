@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import s from './Card.module.css'
 import { useSizing } from '../state/SizingContext.jsx'
 import { queryMonitoring } from '../lib/api.js'
+import { copyToClipboard } from '../lib/clipboard.js'
 
 const EASE = [0.4, 0, 0.2, 1]
 const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -44,22 +45,22 @@ const META = {
 
 
 function CopyMini({ value }) {
-  const [copied, setCopied] = useState(false)
+  const [status, setStatus] = useState(null)  // 'copied' | 'failed' | null
   async function go() {
     if (value == null) return
-    try {
-      await navigator.clipboard.writeText(String(value))
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1400)
-    } catch { /* clipboard blocked */ }
+    const ok = await copyToClipboard(String(value))
+    setStatus(ok ? 'copied' : 'failed')
+    setTimeout(() => setStatus(null), 1600)
   }
+  const label = status === 'copied' ? '✓' : status === 'failed' ? 'fail' : 'copy'
+  const cls = status === 'copied' ? s.miniCopied : status === 'failed' ? s.miniFailed : ''
   return (
     <button
       type="button"
-      className={`${s.miniCopy} ${copied ? s.miniCopied : ''}`}
+      className={`${s.miniCopy} ${cls}`}
       onClick={go}
       disabled={value == null}
-    >{copied ? '✓' : 'copy'}</button>
+    >{label}</button>
   )
 }
 

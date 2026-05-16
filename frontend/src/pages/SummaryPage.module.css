@@ -179,6 +179,11 @@
   background: var(--gc-green);
   color: white;
 }
+.rowCopy.rowFailed {
+  background: var(--gc-red);
+  border-color: var(--gc-red);
+  color: white;
+}
 
 .actions {
   display: flex;
