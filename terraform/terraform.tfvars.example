@@ -1,0 +1,28 @@
+# Copy to terraform.tfvars and edit before running `terraform apply`.
+
+# Required.
+host_project_id = "my-sandbox-project-1234"
+
+# Optional — default region. Vertex calls go to the global endpoint; this is
+# only used by the provider itself.
+# region = "us-central1"
+
+# Optional — SA name. Defaults to "pt-sizing-app".
+# service_account_name = "pt-sizing-app"
+
+# Optional — additional projects whose Cloud Monitoring data you want to
+# query. Defaults to [host_project_id] when empty. You'll need
+# resourcemanager.projects.setIamPolicy on each project listed here.
+# monitoring_project_ids = [
+#   "customer-a-prod",
+#   "customer-b-prod",
+# ]
+
+# Optional — principals who can impersonate the SA via
+# `gcloud auth application-default login --impersonate-service-account=...`.
+# Without at least one entry here, only roles/owner on the project can
+# impersonate (Google's default), which is usually you anyway.
+# impersonators = [
+#   "user:you@example.com",
+#   "group:sizing-team@example.com",
+# ]

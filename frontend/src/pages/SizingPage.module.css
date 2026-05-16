@@ -1,0 +1,270 @@
+.page {
+  padding: var(--sp-6) 0 var(--sp-9);
+}
+
+.intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  margin: var(--sp-6) 0 var(--sp-5);
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gc-blue);
+  margin-bottom: var(--sp-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--ts-h1);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text-1);
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: var(--text-3);
+  font-size: 14px;
+  max-width: 60ch;
+}
+
+.summaryCounter {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-3);
+  padding: 8px 14px;
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+.summaryCounter.complete {
+  background: rgba(52, 168, 83, 0.08);
+  color: var(--gc-green);
+  border-color: var(--gc-green);
+}
+
+/* ──────────────────────────────────────────────────────────
+   Table of contents
+   Tight, navigation-style list. Each row jumps to its card.
+   ────────────────────────────────────────────────────────── */
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.tocHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 14px 20px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border-1);
+}
+
+.tocEyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.tocHint {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-4);
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+}
+
+.tocItem {
+  display: grid;
+  grid-template-columns: 22px 1fr auto 18px;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border-2);
+  cursor: pointer;
+  user-select: none;
+  background: var(--surface);
+  transition:
+    background 0.12s var(--ease-standard),
+    color 0.12s var(--ease-standard);
+}
+.tocList .tocItem:last-child { border-bottom: 0; }
+
+.tocItem:hover {
+  background: var(--gc-blue-tint);
+}
+.tocItem:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+}
+.tocItem:hover .tocJump { color: var(--gc-blue); transform: translateY(1px); }
+
+.tocBadge {
+  width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+}
+.tocBadgeEmpty {
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+}
+.tocBadgeSet {
+  background: var(--gc-green);
+  border: 1.5px solid var(--gc-green);
+  color: white;
+  font-size: 13px;
+}
+
+.tocLabel {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.3;
+  min-width: 0;
+}
+.tocSet .tocLabel { color: var(--text-1); }
+
+.tocValue {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.tocSet .tocValue { color: var(--gc-green); }
+.tocUnit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  margin-left: 4px;
+  font-weight: 400;
+}
+.tocEmpty {
+  color: var(--text-4);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.tocJump {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-4);
+  text-align: right;
+  transition: color 0.12s var(--ease-standard), transform 0.15s var(--ease-standard);
+}
+
+@media (max-width: 640px) {
+  .tocItem { grid-template-columns: 22px 1fr auto; }
+  .tocJump { display: none; }
+  .tocLabel { font-size: 13px; }
+}
+
+/* ──────────────────────────────────────────────────────────
+   Cards (the actual A1–A5 sections)
+   ────────────────────────────────────────────────────────── */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-top: var(--sp-5);
+}
+
+/* Anchor offset so scrollIntoView lands below the sticky topbar+stepper. */
+.cardAnchor {
+  scroll-margin-top: calc(var(--topbar-h) + var(--stepper-h) + var(--sp-4));
+}
+
+/* ──────────────────────────────────────────────────────────
+   Footer CTA — handoff to the summary page
+   ────────────────────────────────────────────────────────── */
+.footerCta {
+  margin-top: var(--sp-7);
+  padding: var(--sp-6);
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.footerCta::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gemini-gradient);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-standard);
+}
+.footerCta.footerReady {
+  border-color: var(--gc-green);
+  background:
+    linear-gradient(135deg, rgba(52, 168, 83, 0.05) 0%, transparent 60%),
+    var(--surface);
+}
+.footerCta.footerReady::before { opacity: 1; }
+
+.footerCopy { flex: 1; min-width: 0; }
+
+.footerTitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+.footerSubtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 4px;
+  max-width: 60ch;
+}
+
+.summaryBtn {
+  font-size: 15px;
+  padding: 14px 28px;
+  white-space: nowrap;
+}
+.summaryBtn .arrow {
+  font-size: 17px;
+  margin-left: 6px;
+  transform: translateY(-1px);
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .footerCta { padding: var(--sp-5); }
+  .summaryBtn { width: 100%; }
+}

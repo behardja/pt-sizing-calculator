@@ -1,0 +1,74 @@
+.bar {
+  height: var(--stepper-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-1);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 40;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  color: var(--text-3);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s var(--ease-standard), color 0.15s var(--ease-standard);
+}
+.step:hover { background: var(--surface-alt); color: var(--text-1); text-decoration: none; }
+
+.step.active {
+  background: var(--gc-blue-tint);
+  color: var(--gc-blue);
+}
+.step.complete { color: var(--text-1); }
+
+.dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  color: var(--text-3);
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.step.active .dot {
+  background: var(--gc-blue);
+  border-color: var(--gc-blue);
+  color: white;
+}
+.step.complete .dot {
+  background: var(--gc-blue);
+  border-color: var(--gc-blue);
+  color: white;
+}
+
+.connector {
+  width: 32px;
+  height: 1px;
+  background: var(--border-1);
+}
+.connector.lit { background: var(--gc-blue); }
+
+@media (max-width: 720px) {
+  .step .label { display: none; }
+  .connector { width: 16px; }
+}

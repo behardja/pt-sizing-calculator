@@ -1,0 +1,205 @@
+.bar {
+  height: var(--topbar-h);
+  border-bottom: 1px solid var(--border-1);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  height: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  text-decoration: none;
+  color: var(--text-1);
+  margin-right: auto;
+}
+.brand:hover { text-decoration: none; }
+
+.logoMark {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brandText .product {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+.brandText .org {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+
+.modelGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.modelLabel {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 8px 12px 8px 14px;
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text-1);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease-standard), background 0.15s var(--ease-standard);
+  min-width: 280px;
+  text-align: left;
+  line-height: 1.2;
+}
+.dropdownButton:hover { border-color: var(--border-strong); background: var(--surface-alt); }
+.dropdownButton[aria-expanded="true"] { border-color: var(--gc-blue); }
+
+.dropdownButton .caret {
+  margin-left: auto;
+  color: var(--text-3);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 0.2s var(--ease-standard);
+}
+.dropdownButton[aria-expanded="true"] .caret {
+  transform: rotate(180deg);
+}
+
+.dropdownMain {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+.dropdownMain .nick {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.dropdownMain .id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-2);
+  padding: 4px 0;
+  z-index: 60;
+  overflow: hidden;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  gap: 2px;
+  transition: background 0.1s var(--ease-standard);
+}
+.menuItem:hover:not(:disabled) { background: var(--surface-alt); }
+.menuItem.selected { background: var(--gc-blue-tint); }
+.menuItem:disabled { cursor: not-allowed; }
+
+.menuItem .nick {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.menuItem.selected .nick { color: var(--gc-blue); }
+.menuItem:disabled .nick { color: var(--text-4); }
+
+.menuItem .id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  background: var(--surface-alt);
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+  width: fit-content;
+}
+
+.docsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: background 0.15s var(--ease-standard), color 0.15s var(--ease-standard);
+}
+.docsLink:hover { background: var(--surface-alt); color: var(--text-1); text-decoration: none; }
+
+@media (max-width: 720px) {
+  .modelLabel { display: none; }
+  .dropdownButton { min-width: 200px; }
+  .docsLink { display: none; }
+}

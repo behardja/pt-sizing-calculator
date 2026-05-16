@@ -1,0 +1,215 @@
+.page {
+  padding: var(--sp-6) 0 var(--sp-9);
+}
+
+.intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  margin: 0 0 var(--sp-5);
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gc-blue);
+  margin-bottom: var(--sp-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--ts-h1);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text-1);
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: var(--text-3);
+  font-size: 14px;
+  max-width: 60ch;
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-3);
+  padding: 8px 14px;
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+.counter.complete {
+  background: rgba(52, 168, 83, 0.08);
+  color: var(--gc-green);
+  border-color: var(--gc-green);
+}
+
+.tableWrap {
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.tableHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-1);
+  background: var(--surface);
+}
+
+.tableTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-1);
+  letter-spacing: -0.005em;
+}
+
+.tableHint {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.table thead th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 12px 20px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border-1);
+}
+
+.table tbody td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-2);
+  vertical-align: middle;
+}
+.table tbody tr:last-child td { border-bottom: 0; }
+
+.colValue {
+  width: 140px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.colUnit { width: 64px; }
+.colCopy {
+  width: 92px;
+  text-align: right;
+}
+.colField { color: var(--text-2); }
+
+.table thead .colValue { text-align: right; }
+
+/* Filled rows — green tint */
+.rowSet {
+  background: rgba(52, 168, 83, 0.05);
+}
+.rowSet:hover { background: rgba(52, 168, 83, 0.09); }
+.rowSet .colField { color: var(--text-1); }
+.rowSet .value {
+  color: var(--gc-green);
+  font-weight: 500;
+  font-size: 16px;
+}
+.rowSet .unit {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+/* Empty rows — neutral, value cell stays blank */
+.rowEmpty .colField { color: var(--text-3); }
+.rowEmpty:hover { background: var(--surface-alt); }
+
+.blank {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+}
+
+.rowCopy {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--gc-green);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--gc-green);
+  cursor: pointer;
+  transition: background 0.15s var(--ease-standard),
+              color 0.15s var(--ease-standard),
+              border-color 0.15s var(--ease-standard);
+}
+.rowCopy:hover {
+  background: var(--gc-green);
+  color: white;
+}
+.rowCopy.rowCopied {
+  background: var(--gc-green);
+  color: white;
+}
+
+.actions {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--sp-5);
+}
+
+.openBtn {
+  font-size: 15px;
+  padding: 14px 28px;
+}
+.openBtn .arrow { font-size: 18px; transform: translateY(-1px); margin-left: 4px; }
+
+.note {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-3);
+  max-width: 38ch;
+  text-align: right;
+}
+
+@media (max-width: 720px) {
+  .table thead th,
+  .table tbody td { padding: 12px 14px; }
+  .colValue { width: 100px; }
+  .colUnit { width: 48px; }
+  .colCopy { width: 78px; }
+  .tableHead { flex-wrap: wrap; }
+  .tableHint { font-size: 12px; }
+  .note { margin-left: 0; text-align: left; }
+}

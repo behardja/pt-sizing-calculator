@@ -1,0 +1,99 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Google Cloud-flavored tokens
+   White canvas, Google blue, hairline borders, DM Sans (≈ Google Sans),
+   Roboto body, Roboto Mono for code.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Surfaces ── */
+  --surface:           #ffffff;
+  --surface-alt:       #f8f9fa;
+  --surface-elev:      #ffffff;
+  --surface-dark:      #202124;
+  --surface-tint:      #e8f0fe;   /* Google blue tint, very pale */
+
+  /* ── Brand palette ── */
+  --gc-blue:           #1a73e8;
+  --gc-blue-hover:     #1765cc;
+  --gc-blue-pressed:   #185abc;
+  --gc-blue-soft:      #d2e3fc;
+  --gc-blue-tint:      #e8f0fe;
+  --gc-red:            #ea4335;
+  --gc-yellow:         #fbbc04;
+  --gc-green:          #34a853;
+  --gc-purple:         #9168c0;
+
+  /* ── Text ── */
+  --text-1:            #202124;   /* primary */
+  --text-2:            #3c4043;
+  --text-3:            #5f6368;   /* secondary / labels */
+  --text-4:            #80868b;   /* muted */
+  --text-on-blue:      #ffffff;
+
+  /* ── Borders ── */
+  --border-1:          #dadce0;   /* hairline (default) */
+  --border-2:          #e8eaed;   /* lighter */
+  --border-strong:     #bdc1c6;
+  --border-blue:       #1a73e8;
+
+  /* ── State ── */
+  --hover-bg:          rgba(60, 64, 67, 0.04);
+  --active-bg:         rgba(60, 64, 67, 0.08);
+  --focus-ring:        rgba(26, 115, 232, 0.4);
+
+  /* ── Type ── */
+  /* DM Sans is the closest free analogue to Google Sans Display.
+     Roboto is the actual Google body font.
+     Roboto Mono for code/data. */
+  --font-display:      'DM Sans', 'Google Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:         'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:         'Roboto Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ── Type scale ── */
+  --ts-display:        clamp(2.25rem, 4vw + 1rem, 3.5rem);   /* hero */
+  --ts-h1:             clamp(1.625rem, 1.5vw + 1rem, 2rem);   /* page title */
+  --ts-h2:             1.375rem;
+  --ts-h3:             1.0625rem;
+  --ts-body:           0.9375rem;
+  --ts-small:          0.8125rem;
+  --ts-micro:          0.75rem;
+
+  /* ── Spacing ── (4px base) */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ── Radii (Google uses 4 / 8, plus pill) ── */
+  --r-xs:  2px;
+  --r-sm:  4px;
+  --r-md:  8px;
+  --r-lg:  12px;
+  --r-pill: 100px;
+
+  /* ── Elevation (Material-style) ── */
+  --shadow-1:  0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-2:  0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  --shadow-3:  0 4px 8px 3px rgba(60, 64, 67, 0.15), 0 1px 3px 0 rgba(60, 64, 67, 0.30);
+
+  /* ── Motion ── */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emph:     cubic-bezier(0.2, 0, 0, 1);
+
+  /* ── Layout ── */
+  --content-max:   1140px;
+  --gutter:        clamp(20px, 4vw, 40px);
+  --topbar-h:      64px;
+  --stepper-h:     56px;
+
+  /* ── Signature gradient (Gemini-style) ── */
+  --gemini-gradient: linear-gradient(135deg, #4796e3 0%, #9168c0 50%, #ff8b6b 100%);
+}
