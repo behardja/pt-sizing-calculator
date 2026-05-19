@@ -17,10 +17,6 @@ needs for **Nano Banana 2** (`gemini-3.1-flash-image-preview`).
    field. The estimator does the burndown × QPS math on its end; this app
    only collects raw counts.
 
-> Tip: the input card has a ** Run Model to est. Outputs** button. One click
-> calls `generateContent` with your staged input and back-fills A3–A6 from
-> `usageMetadata`, so you don't have to find representative output samples
-> yourself.
 
 ## Requirements
 
