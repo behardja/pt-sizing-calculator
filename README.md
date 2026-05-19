@@ -2,9 +2,7 @@
 
 ![PT Sizing Calculator summary view](imgs/pt_sample.png)
 
-A guided UI that produces the inputs Google's
-[Vertex Provisioned Throughput estimator](https://console.cloud.google.com/vertex-ai/provisioned-throughput/price-estimate)
-needs for **Nano Banana 2** (`gemini-3.1-flash-image-preview`).
+A guided UI that produces the inputs Google's Vertex Provisioned Throughput estimator (https://console.cloud.google.com/vertex-ai/provisioned-throughput/price-estimate) needs for Nano Banana 2 (gemini-3.1-flash-image-preview). Values are project-specific — pulled from your historical Cloud Monitoring data and from countTokens on representative samples.
 
 ## How it works
 
